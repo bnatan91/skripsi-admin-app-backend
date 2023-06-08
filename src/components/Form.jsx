@@ -1,63 +1,207 @@
 import { isEmpty, filter } from 'lodash';
 import React, { useEffect, useState } from 'react';
 
+/* Kelompok IPA : 
+1. Matematika Peminatan
+2. Kimia
+3. Fisika
+4. Biologi
+5. Informatika
+Kelompok IPS :
+1. Ekonomi
+2. Sosiologi
+3. Geografi
+Kelompok Bahasa
+1. Bahasa Inggris lanjutan
+2. Bahasan Indonesia lanjutan 
+
+5 pilihan jurusan terbanyak yang disarankan dari test minat bakat
+1. Seni dan Design
+2. Teknologi Informasi
+3. Psikologi
+4. MIPA
+5. Perhotelan dan Pariwisata
+*/
+
 const listSubjects = [
   {
     id: 1,
-    name: 'subject 1',
+    name: 'Matematika Peminatan',
+    category: 'IPA',
     value: 0,
-    checked: 0.5,
+    checkedT: 0.5,
+    checkedS: 0.5,
+  },
+  {
+    id: 2,
+    name: 'Kimia',
+    category: 'IPA',
+    value: 0,
+    checkedT: 0.5,
+    checkedS: 0.5,
   },
   {
     id: 3,
-    name: 'subject 2',
+    name: 'Fisika',
+    category: 'IPA',
     value: 0,
-    checked: 0.5,
+    checkedT: 0.5,
+    checkedS: 0.5,
+  },
+  {
+    id: 4,
+    name: 'Biologi',
+    category: 'IPA',
+    value: 0,
+    checkedT: 0.5,
+    checkedS: 0.5,
   },
   {
     id: 5,
-    name: 'subject 3',
+    name: 'Informatika',
+    category: 'IPA',
     value: 0,
-    checked: 0.5,
+    checkedT: 0.5,
+    checkedS: 0.5,
+  },
+  {
+    id: 6,
+    name: 'Ekonomi',
+    category: 'IPS',
+    value: 0,
+    checkedT: 0.5,
+    checkedS: 0.5,
+  },
+  {
+    id: 7,
+    name: 'Sosiologi',
+    category: 'IPS',
+    value: 0,
+    checkedT: 0.5,
+    checkedS: 0.5,
+  },
+  {
+    id: 6,
+    name: 'Geografi',
+    category: 'IPS',
+    value: 0,
+    checkedT: 0.5,
+    checkedS: 0.5,
+  },
+  {
+    id: 6,
+    name: 'Bahasa Inggris lanjutan',
+    category: 'BAHASA',
+    value: 0,
+    checkedT: 0.5,
+    checkedS: 0.5,
+  },
+  {
+    id: 6,
+    name: 'Bahasan Indonesia lanjutan',
+    category: 'BAHASA',
+    value: 0,
+    checkedT: 0.5,
+    checkedS: 0.5,
+  },
+];
+
+const listMajor = [
+  {
+    id: 1,
+    name: 'Seni dan Design',
+    category: 'IPA',
+  },
+  {
+    id: 2,
+    name: 'Teknologi Informasi',
+    category: 'IPA',
+  },
+  {
+    id: 3,
+    name: 'Psikologi',
+    category: 'IPS',
+  },
+  {
+    id: 3,
+    name: 'MIPA',
+    category: 'IPS',
+  },
+  {
+    id: 3,
+    name: 'Perhotelan dan Pariwisata',
+    category: 'IPS',
   },
 ];
 
 function Form(props) {
   const [inputSubject, setInputSubject] = useState([]);
   const [newArr, setNewArr] = useState([]);
+  const [major, setMajor] = useState(listMajor[0]);
+  const [selectMajor, setSelectMajor] = useState([]);
 
   useEffect(() => {
     setNewArr(listSubjects);
+    setSelectMajor(listMajor);
   }, []);
 
   const newData = (index, value, subject) => {
     let filterData = newArr.filter((item) => item.id !== subject.id);
     let body = {
-      id: subject.id,
+      id: index + 1,
       name: subject?.name,
       value: value,
-      checked: subject.checked,
+      category: subject.category,
+      checkedT: subject.checkedT,
+      checkedS: subject.checkedS,
     };
     filterData.push(body);
     filterData.sort((a, b) => a.id - b.id);
     setNewArr(filterData);
   };
 
-  const newCheckedValue = (index, checked, subject) => {
+  const newCheckedValueT = (index, checked, subject) => {
     let filterData = newArr.filter((item) => item.id !== subject.id);
     let body = {
       id: subject.id,
       name: subject?.name,
       value: subject.value,
-      checked: checked === true ? 1 : 0.5,
+      category: subject.category,
+      checkedT: checked === true ? 1 : 0.5,
+      checkedS: subject.checkedS,
     };
     filterData.push(body);
     filterData.sort((a, b) => a.id - b.id);
     setNewArr(filterData);
   };
 
+  const newCheckedValueS = (index, checked, subject) => {
+    let filterData = newArr.filter((item) => item.id !== subject.id);
+    let body = {
+      id: subject.id,
+      name: subject?.name,
+      value: subject.value,
+      category: subject.category,
+      checkedT: subject.checkedT,
+      checkedS: checked === true ? 1 : 0.5,
+    };
+    filterData.push(body);
+    filterData.sort((a, b) => a.id - b.id);
+    setNewArr(filterData);
+  };
+
+  const majorSelectedHandler = (e) => {
+    const selectedMajor = e.target.value;
+    for (let i = 0; i < selectMajor.length; i++) {
+      if (selectMajor[i].name === selectedMajor) {
+        setMajor(selectMajor[i]);
+      }
+    }
+  };
+
   const onSubmitHandler = (e) => {
     e.preventDefault();
+    props.onSubmitMajor(major);
     props.onModal(true);
     props.onSubmit(newArr);
   };
@@ -65,21 +209,34 @@ function Form(props) {
   return (
     <div>
       <form onSubmit={onSubmitHandler}>
-        <div>
-          <div>
-            <label>Nilai Psikolog</label>
-            <input type="text" />
+        <div className="flex flex-col md:w-full">
+          <div className="flex justify-center mx-2 mt-2 md: mx-0">
+            <div className="flex flex-col my-4">
+              <label className="ml-6">Pilih Jurusan</label>
+              <select
+                className="rounded my-2 w-32"
+                id="major"
+                onChange={majorSelectedHandler}
+              >
+                {selectMajor.map((major, index) => (
+                  <option
+                    className="rounded"
+                    key={index + 1}
+                    value={major.name}
+                  >
+                    {major.name}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
-          <div>
-            <label>Nilai Psikologi</label>
-            <input type="text" />
-          </div>
-          <div>
+          <div className="flex flex-col mx-2 md:mx-8">
             {newArr.map((subject, index) => (
-              <div key={index}>
-                <div>
-                  <label>{subject.name}</label>
+              <div key={index} className="flex flex-col mr-0 md:flex-row mr-2">
+                <div className="flex flex-col ">
+                  <label className="ml-4">{subject.name}</label>
                   <input
+                    className="my-2 ml-6 w-4/5 rounded"
                     type="number"
                     onChange={(e) => {
                       newData(index, e.target.value, subject);
@@ -87,20 +244,34 @@ function Form(props) {
                   />
                 </div>
                 <div>
-                  <label>Rekomendasi Guru</label>
-                  <input
-                    type="checkbox"
-                    onChange={(e) => {
-                      newCheckedValue(index, e.target.checked, subject);
-                    }}
-                  />
+                  <div className="ml-8 my-2 md:mt-8 ml-4">
+                    <label>Rekomendasi Guru</label>
+                    <input
+                      className="ml-4 "
+                      type="checkbox"
+                      onChange={(e) => {
+                        newCheckedValueT(index, e.target.checked, subject);
+                      }}
+                    />
+                  </div>
+                  <div className="ml-8 my-2 md:mt-8 ml-4">
+                    <label>Pelajaran yang Disukai</label>
+                    <input
+                      className="ml-4 "
+                      type="checkbox"
+                      onChange={(e) => {
+                        newCheckedValueS(index, e.target.checked, subject);
+                      }}
+                    />
+                  </div>
+                  <br />
                 </div>
               </div>
             ))}
           </div>
-          <div>
-            <button type="submit">
-              <p>submit</p>
+          <div className="flex justify-end my-10 mx-2 mr-10 ">
+            <button className="border-2 rounded-lg" type="submit">
+              <p className="mx-2 my-1">submit</p>
             </button>
           </div>
         </div>

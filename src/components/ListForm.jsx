@@ -1,55 +1,200 @@
 import React, { useEffect, useState } from 'react';
 import Form from './Form';
 
-const matrix = (data) => {
-  // console.log(data);
+let finalValue = [];
+
+const matrix = (data, major) => {
   const valueArr = [];
-  const checkedArr = [];
+  const checkedTArr = [];
+  const checkedSArr = [];
   data.map((subject, index) => {
-    console.log(subject.value);
+    // console.log(subject.value);
     valueArr.push({
       id: index + 1,
       value: subject.value,
     });
-    checkedArr.push({
+    checkedTArr.push({
       id: index + 1,
-      checked: subject.checked,
+      checkedT: subject.checkedT,
+    });
+    checkedSArr.push({
+      id: index + 1,
+      checkedS: subject.checkedS,
     });
   });
-  normalizeMatrix(data, valueArr, checkedArr);
+  normalizeMatrix(data, major, valueArr, checkedTArr, checkedSArr);
 };
 
-const normalizeMatrix = (data, valueArr, checkedArr) => {
-  // console.log(data, valueArr, checkedArr);
+const normalizeMatrix = (data, major, valueArr, checkedTArr, checkedSArr) => {
   const sortValue = valueArr.sort((a, b) => b.value - a.value);
-  const sortChecked = checkedArr.sort((a, b) => b.checked - a.checked);
-  // console.log(sortValue, sortChecked);
-  calculationMatrix(data, sortValue, sortChecked);
+  const sortCheckedT = checkedTArr.sort((a, b) => b.checkedT - a.checkedT);
+  const sortCheckedS = checkedSArr.sort((a, b) => b.checkedS - a.checkedS);
+  calculationMatrix(data, major, sortValue, sortCheckedT, sortCheckedS);
 };
 
-const calculationMatrix = (data, value, checked) => {
-  console.log(data, value, checked);
+const calculationMatrix = (data, major, value, checkedT, checkedS) => {
+  console.log(data);
+  const maxValue = value[0];
+  const maxCheckedT = checkedT[0];
+  const maxCheckedS = checkedS[0];
+  let lastValue = [];
+  let wsmValue = [];
+  let wpmValue = [];
+  const sortIdValue = value.sort((a, b) => a.id - b.id);
+  const sortIdCheckedT = checkedT.sort((a, b) => a.id - b.id);
+  const sortIdCheckedS = checkedS.sort((a, b) => a.id - b.id);
+
+  switch (major.category) {
+    case 'IPA':
+      {
+        console.log('ipa');
+        for (let i = 0; i < data.length; i++) {
+          if (data[i].category === 'IPA') {
+            console.log('...ipa');
+            wsmValue.push(
+              (sortIdValue[i].value / maxValue.value) * 0.3 +
+                (1 / 1) * 0.3 +
+                (sortIdCheckedT[i].checkedT / maxCheckedT.checkedT) * 0.2 +
+                (sortIdCheckedS[i].checkedS / maxCheckedS.checkedS) * 0.2,
+            );
+            wpmValue.push(
+              Math.pow(sortIdValue[i].value / maxValue.value, 0.6) *
+                Math.pow(1 / 1, 0.3) *
+                Math.pow(
+                  sortIdCheckedT[i].checkedT / maxCheckedT.checkedT,
+                  0.4,
+                ) *
+                Math.pow(
+                  sortIdCheckedS[i].checkedS / maxCheckedS.checkedS,
+                  0.4,
+                ),
+            );
+          } else {
+            wsmValue.push(
+              (sortIdValue[i].value / maxValue.value) * 0.3 +
+                (0.5 / 1) * 0.3 +
+                (sortIdCheckedT[i].checkedT / maxCheckedT.checkedT) * 0.2 +
+                (sortIdCheckedS[i].checkedS / maxCheckedS.checkedS) * 0.2,
+            );
+            wpmValue.push(
+              Math.pow(sortIdValue[i].value / maxValue.value, 0.6) *
+                Math.pow(0.5 / 1, 0.3) *
+                Math.pow(
+                  sortIdCheckedT[i].checkedT / maxCheckedT.checkedT,
+                  0.4,
+                ) *
+                Math.pow(
+                  sortIdCheckedS[i].checkedS / maxCheckedS.checkedS,
+                  0.4,
+                ),
+            );
+          }
+        }
+      }
+      break;
+    case 'IPS':
+      {
+        console.log('ips');
+        for (let i = 0; i < data.length; i++) {
+          if (data[i].category === 'IPS') {
+            console.log('...ipa');
+            wsmValue.push(
+              (sortIdValue[i].value / maxValue.value) * 0.3 +
+                (1 / 1) * 0.3 +
+                (sortIdCheckedT[i].checkedT / maxCheckedT.checkedT) * 0.2 +
+                (sortIdCheckedS[i].checkedS / maxCheckedS.checkedS) * 0.2,
+            );
+            wpmValue.push(
+              Math.pow(sortIdValue[i].value / maxValue.value, 0.6) *
+                Math.pow(1 / 1, 0.3) *
+                Math.pow(
+                  sortIdCheckedT[i].checkedT / maxCheckedT.checkedT,
+                  0.4,
+                ) *
+                Math.pow(
+                  sortIdCheckedS[i].checkedS / maxCheckedS.checkedS,
+                  0.4,
+                ),
+            );
+          } else {
+            wsmValue.push(
+              (sortIdValue[i].value / maxValue.value) * 0.3 +
+                (0.5 / 1) * 0.3 +
+                (sortIdCheckedT[i].checkedT / maxCheckedT.checkedT) * 0.2 +
+                (sortIdCheckedS[i].checkedS / maxCheckedS.checkedS) * 0.2,
+            );
+            wpmValue.push(
+              Math.pow(sortIdValue[i].value / maxValue.value, 0.6) *
+                Math.pow(0.5 / 1, 0.3) *
+                Math.pow(
+                  sortIdCheckedT[i].checkedT / maxCheckedT.checkedT,
+                  0.4,
+                ) *
+                Math.pow(
+                  sortIdCheckedS[i].checkedS / maxCheckedS.checkedS,
+                  0.4,
+                ),
+            );
+          }
+        }
+      }
+      break;
+
+    default:
+      break;
+  }
+
+  console.log(wsmValue);
+  data.map((subject, index) => {
+    finalValue.push({
+      id: index + 1,
+      name: subject.name,
+      value: 0.5 * wsmValue[index] + 0.5 * wpmValue[index],
+    });
+  });
+  // console.log(finalValue);
+  // finalValue = [];
 };
 
 function ListForm(props) {
   const [inputSubject, setInputSubject] = useState([]);
+  const [inputMajor, setInputMajor] = useState('');
+  const [value, setValue] = useState([]);
   const submitHandler = (data) => {
     setInputSubject(data);
   };
 
-  matrix(inputSubject);
-  const submitValue = () => {
-    props.onSubmit(inputSubject);
+  const submitMajorHandler = (data) => {
+    setInputMajor(data);
   };
 
+  useEffect(() => {
+    matrix(inputSubject, inputMajor);
+    setValue(finalValue);
+    finalValue = [];
+  }, [inputSubject, inputMajor]);
+
+  useEffect(() => {
+    props.onValue(value);
+  }, [value]);
+
+  const submitValue = () => {
+    console.log(inputSubject);
+  };
+
+  // console.log(value);
   const modalHandler = (data) => {
     // console.log(data);
     props.onModal(data);
   };
-  //   console.log(inputSubject);
   return (
-    <div>
-      <Form onSubmit={submitHandler} onModal={modalHandler} />
+    <div className="bg-[#98A8F8]">
+      <Form
+        onSubmit={submitHandler}
+        onSubmitMajor={submitMajorHandler}
+        onModal={modalHandler}
+        onValue={submitValue}
+      />
     </div>
   );
 }
