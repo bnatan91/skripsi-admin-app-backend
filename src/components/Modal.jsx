@@ -8,9 +8,12 @@ function Modal(props) {
   };
   console.log();
   return (
-    <div className="fixed inset-0 flex justify-center items-center bg-slate-500 bg-opacity-30 backdrop-blur-sm">
-      <div className="w-80  flex flex-col justify-between bg-[#CDFCF6]/95">
+    <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-70 ">
+      <div className="w-80 md:w-[25rem] lg:w-[30rem]  flex flex-col justify-between bg-[#B7C0EE]/95">
         <div className="my-4 mx-2">
+          <h2 className="flex justify-center items-center">
+            Hasil Rekomendasi Mata Pelajaran
+          </h2>
           {value.map((subject, index) => (
             <div
               key={index + 1}
@@ -27,7 +30,7 @@ function Modal(props) {
         </div>
         <div className="flex justify-center my-10 mx-2">
           <button
-            className="border-2 rounded-lg bg-[#98A8F8]/90"
+            className="border-2 rounded-lg text-slate-200 bg-[#7B287D]/90"
             onClick={onClickHandler}
           >
             <p className="mx-2 my-1">back</p>

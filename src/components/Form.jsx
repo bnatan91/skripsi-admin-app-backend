@@ -1,27 +1,4 @@
-import { isEmpty, filter } from 'lodash';
 import React, { useEffect, useState } from 'react';
-
-/* Kelompok IPA : 
-1. Matematika Peminatan
-2. Kimia
-3. Fisika
-4. Biologi
-5. Informatika
-Kelompok IPS :
-1. Ekonomi
-2. Sosiologi
-3. Geografi
-Kelompok Bahasa
-1. Bahasa Inggris lanjutan
-2. Bahasan Indonesia lanjutan 
-
-5 pilihan jurusan terbanyak yang disarankan dari test minat bakat
-1. Seni dan Design
-2. Teknologi Informasi
-3. Psikologi
-4. MIPA
-5. Perhotelan dan Pariwisata
-*/
 
 const listSubjects = [
   {
@@ -81,7 +58,7 @@ const listSubjects = [
     checkedS: 0.5,
   },
   {
-    id: 6,
+    id: 8,
     name: 'Geografi',
     category: 'IPS',
     value: 0,
@@ -89,7 +66,7 @@ const listSubjects = [
     checkedS: 0.5,
   },
   {
-    id: 6,
+    id: 9,
     name: 'Bahasa Inggris lanjutan',
     category: 'BAHASA',
     value: 0,
@@ -97,8 +74,8 @@ const listSubjects = [
     checkedS: 0.5,
   },
   {
-    id: 6,
-    name: 'Bahasan Indonesia lanjutan',
+    id: 10,
+    name: 'Bahasa Indonesia lanjutan',
     category: 'BAHASA',
     value: 0,
     checkedT: 0.5,
@@ -123,13 +100,13 @@ const listMajor = [
     category: 'IPS',
   },
   {
-    id: 3,
+    id: 4,
     name: 'MIPA',
-    category: 'IPS',
+    category: 'IPA',
   },
   {
-    id: 3,
-    name: 'Perhotelan dan Pariwisata',
+    id: 5,
+    name: 'Perhotelan dan Pariwisata',
     category: 'IPS',
   },
 ];
@@ -232,9 +209,14 @@ function Form(props) {
           </div>
           <div className="flex flex-col mx-2 md:mx-8">
             {newArr.map((subject, index) => (
-              <div key={index} className="flex flex-col mr-0 md:flex-row mr-2">
+              <div
+                key={index}
+                className="flex  flex-col  md:flex-row mr-0 ml-0 md:ml-4 lg:ml-14  xl:ml-20"
+              >
                 <div className="flex flex-col ">
-                  <label className="ml-4">{subject.name}</label>
+                  <label className="ml-4">
+                    {index + 1}. {subject.name}
+                  </label>
                   <input
                     className="my-2 ml-6 w-4/5 rounded"
                     type="number"
@@ -247,7 +229,7 @@ function Form(props) {
                   <div className="ml-8 my-2 md:mt-8 ml-4">
                     <label>Rekomendasi Guru</label>
                     <input
-                      className="ml-4 "
+                      className="ml-[42.5px]"
                       type="checkbox"
                       onChange={(e) => {
                         newCheckedValueT(index, e.target.checked, subject);
@@ -257,7 +239,7 @@ function Form(props) {
                   <div className="ml-8 my-2 md:mt-8 ml-4">
                     <label>Pelajaran yang Disukai</label>
                     <input
-                      className="ml-4 "
+                      className="ml-4"
                       type="checkbox"
                       onChange={(e) => {
                         newCheckedValueS(index, e.target.checked, subject);
@@ -270,7 +252,10 @@ function Form(props) {
             ))}
           </div>
           <div className="flex justify-end my-10 mx-2 mr-10 ">
-            <button className="border-2 rounded-lg" type="submit">
+            <button
+              className="border-2 bg-[#7B287D] text-slate-200 rounded-lg"
+              type="submit"
+            >
               <p className="mx-2 my-1">submit</p>
             </button>
           </div>

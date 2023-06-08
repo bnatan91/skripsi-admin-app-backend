@@ -33,7 +33,6 @@ const normalizeMatrix = (data, major, valueArr, checkedTArr, checkedSArr) => {
 };
 
 const calculationMatrix = (data, major, value, checkedT, checkedS) => {
-  console.log(data);
   const maxValue = value[0];
   const maxCheckedT = checkedT[0];
   const maxCheckedS = checkedS[0];
@@ -143,8 +142,6 @@ const calculationMatrix = (data, major, value, checkedT, checkedS) => {
     default:
       break;
   }
-
-  console.log(wsmValue);
   data.map((subject, index) => {
     finalValue.push({
       id: index + 1,
@@ -188,7 +185,7 @@ function ListForm(props) {
     props.onModal(data);
   };
   return (
-    <div className="bg-[#98A8F8]">
+    <div className="w-72 bg-[#B7C0EE] rounded md:w-[35rem] lg:w-[45rem]">
       <Form
         onSubmit={submitHandler}
         onSubmitMajor={submitMajorHandler}
