@@ -185,7 +185,10 @@ function ListForm(props) {
     props.onModal(data);
   };
   return (
-    <div className="w-72 bg-[#B7C0EE] rounded md:w-[35rem] lg:w-[45rem]">
+    <div
+      id="listForm"
+      className="mx-[2rem] lg:mx-[6rem] bg-[#1e293b] border border-gray-700 rounded-lg p-8 md:p-12"
+    >
       <Form
         onSubmit={submitHandler}
         onSubmitMajor={submitMajorHandler}
