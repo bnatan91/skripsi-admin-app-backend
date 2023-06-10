@@ -1,3 +1,10 @@
+import {
+  Card,
+  CardBody,
+  CardFooter,
+  Typography,
+  Button,
+} from '@material-tailwind/react';
 import React from 'react';
 
 function Modal(props) {
@@ -6,38 +13,64 @@ function Modal(props) {
     e.preventDefault();
     props.onBack(false);
   };
-  console.log();
+  console.log(value);
   return (
-    <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-70 ">
-      <div className="w-80 md:w-[25rem] lg:w-[30rem]  flex flex-col justify-between bg-[#B7C0EE]/95">
-        <div className="my-4 mx-2">
-          <h2 className="flex justify-center items-center">
-            Hasil Rekomendasi Mata Pelajaran
-          </h2>
-          {value.map((subject, index) => (
-            <div
-              key={index + 1}
-              className="flex flex-row justify-between mx-4 ml-4 my-6"
+    <>
+      <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-70">
+        <Card className="h-[50rem] lg:h-[40rem] flex items-center md:w-[40rem] bg-[#111827] overflow-y-scroll">
+          <CardBody>
+            <Typography
+              variant="h5"
+              color="white"
+              className="flex justify-center mb-2"
             >
-              <p className="ml-8">{subject.name}</p>
-              <p className=" mr-8">
-                {subject.value.toString() === 'NaN'
-                  ? 0
-                  : subject.value.toFixed(5)}
-              </p>
-            </div>
-          ))}
-        </div>
-        <div className="flex justify-center my-10 mx-2">
-          <button
-            className="border-2 rounded-lg text-slate-200 bg-[#7B287D]/90"
-            onClick={onClickHandler}
-          >
-            <p className="mx-2 my-1">back</p>
-          </button>
-        </div>
+              Hasil Rekomendasi
+            </Typography>
+            <table>
+              <tbody>
+                {value.map((subject, index) => (
+                  <tr
+                    key={index + 1}
+                    className="flex flex-row justify-between mx-4 ml-4 my-6 even:bg-blue-gray-900"
+                  >
+                    <td className="p-4">
+                      <Typography
+                        variant="small"
+                        color="white"
+                        className="font-normal"
+                      >
+                        {subject.name}
+                      </Typography>
+                    </td>
+                    <td className="p-4">
+                      <Typography
+                        variant="small"
+                        color="white"
+                        className="font-normal"
+                      >
+                        {subject.value.toString() === 'NaN'
+                          ? 0
+                          : subject.value.toFixed(5)}
+                      </Typography>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </CardBody>
+          <CardFooter>
+            <CardFooter className="pt-0">
+              <Button
+                className="bg-[#1d4ed8] items-start text-gray-200"
+                onClick={onClickHandler}
+              >
+                Back
+              </Button>
+            </CardFooter>
+          </CardFooter>
+        </Card>
       </div>
-    </div>
+    </>
   );
 }
 

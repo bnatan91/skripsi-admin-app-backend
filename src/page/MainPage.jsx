@@ -1,39 +1,18 @@
 import React, { useState } from 'react';
-import ListForm from '../components/ListForm';
-import Modal from '../components/Modal';
-import Intro from '../components/Intro';
-import Intruction from '../components/Intruction';
+import Navbar from '../components/Navbar';
+import Header from '../components/Header';
+import MainContent from './MainContent';
+import Footer from '../components/Footer';
 
 function MainPage() {
-  const [modal, setModal] = useState(false);
-  const [intro, setIntro] = useState(true);
-  const [value, setValue] = useState([]);
-  const modalHandler = (data) => {
-    setModal(data);
-  };
-
-  const submitHandler = (data) => {
-    // console.log(data);
-    setValue(data);
-  };
-
-  const backHandler = (data) => {
-    setModal(data);
-  };
-
-  const introHandler = (data) => {
-    setIntro(data);
-  };
-
   return (
     <>
-      {intro ? <Intro onIntro={introHandler} /> : ''}
-      <div className="flex flex-col justify-center items-center w-screen">
-        <Intruction />
-        <br />
-        <ListForm onModal={modalHandler} onValue={submitHandler} />
+      <div className="w-full h-full bg flex flex-col font-sans bg-[#020617]">
+        <Navbar />
+        <Header />
+        <MainContent />
+        <Footer />
       </div>
-      {modal === false ? '' : <Modal onBack={backHandler} onSubmit={value} />}
     </>
   );
 }

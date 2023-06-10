@@ -1,4 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import {
+  Select,
+  Option,
+  Input,
+  Checkbox,
+  Button,
+} from '@material-tailwind/react';
 
 const listSubjects = [
   {
@@ -168,6 +175,7 @@ function Form(props) {
   };
 
   const majorSelectedHandler = (e) => {
+    console.log(e.target.value);
     const selectedMajor = e.target.value;
     for (let i = 0; i < selectMajor.length; i++) {
       if (selectMajor[i].name === selectedMajor) {
@@ -184,84 +192,78 @@ function Form(props) {
   };
 
   return (
-    <div>
-      <form onSubmit={onSubmitHandler}>
-        <div className="flex flex-col md:w-full">
-          <div className="flex justify-center mx-2 mt-2 md: mx-0">
-            <div className="flex flex-col my-4">
-              <label className="ml-6">Pilih Jurusan</label>
-              <select
-                className="rounded my-2 w-32"
-                id="major"
-                onChange={majorSelectedHandler}
+    <>
+      <form
+        className="flex flex-col justify-center items-center p-4 my-4 text-white"
+        onSubmit={onSubmitHandler}
+      >
+        <div className="flex flex-col justify-center w-[13rem]  rounded-lg">
+          <label
+            htmlFor="major"
+            className="block mb-2 text-sm font-medium text-white"
+          >
+            Pilih Jurusan
+          </label>
+          <select
+            id="major"
+            className="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-transparent border-gray-300 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+            onChange={majorSelectedHandler}
+          >
+            {selectMajor.map((major, index) => (
+              <option
+                className="bg-[#020617]"
+                key={index + 1}
+                value={major.name}
               >
-                {selectMajor.map((major, index) => (
-                  <option
-                    className="rounded"
-                    key={index + 1}
-                    value={major.name}
-                  >
-                    {major.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-          <div className="flex flex-col mx-2 md:mx-8">
-            {newArr.map((subject, index) => (
-              <div
-                key={index}
-                className="flex  flex-col  md:flex-row mr-0 ml-0 md:ml-4 lg:ml-14  xl:ml-20"
-              >
-                <div className="flex flex-col ">
-                  <label className="ml-4">
-                    {index + 1}. {subject.name}
-                  </label>
-                  <input
-                    className="my-2 ml-6 w-4/5 rounded"
-                    type="number"
+                {major.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <br />
+        <div className="flex flex-col md:p-4 md:px-10">
+          {newArr.map((subject, index) => (
+            <div key={index} className="flex flex-col md:flex-row lg:my-4">
+              <div className="md:mr-20 lg:mr-[5rem]">
+                <Input
+                  color="white"
+                  label={subject.name}
+                  variant="outlined"
+                  type="number"
+                  onChange={(e) => {
+                    newData(index, e.target.value, subject);
+                  }}
+                />
+              </div>
+              <div className="flex flex-col md:flex-col lg:flex-row">
+                <div className="flex justify center items-center lg:mr-[5rem] lg:ml-[5rem]">
+                  <Checkbox
                     onChange={(e) => {
-                      newData(index, e.target.value, subject);
+                      newCheckedValueT(index, e.target.checked, subject);
                     }}
                   />
+                  <label>Rekomendasi Guru</label>
                 </div>
-                <div>
-                  <div className="ml-8 my-2 md:mt-8 ml-4">
-                    <label>Rekomendasi Guru</label>
-                    <input
-                      className="ml-[42.5px]"
-                      type="checkbox"
-                      onChange={(e) => {
-                        newCheckedValueT(index, e.target.checked, subject);
-                      }}
-                    />
-                  </div>
-                  <div className="ml-8 my-2 md:mt-8 ml-4">
-                    <label>Pelajaran yang Disukai</label>
-                    <input
-                      className="ml-4"
-                      type="checkbox"
-                      onChange={(e) => {
-                        newCheckedValueS(index, e.target.checked, subject);
-                      }}
-                    />
-                  </div>
-                  <br />
+                <div className="flex justify center items-center lg:ml-[5rem]">
+                  <Checkbox
+                    onChange={(e) => {
+                      newCheckedValueS(index, e.target.checked, subject);
+                    }}
+                  />
+                  <label>Pelajaran yang disukai</label>
                 </div>
+                <br />
               </div>
-            ))}
-          </div>
-          <div className="flex justify-end my-10 mx-2 mr-10 ">
-            <button
-              className="border-2 bg-[#7B287D] text-slate-200 rounded-lg"
-              type="submit"
-            >
-              <p className="mx-2 my-1">submit</p>
-            </button>
-          </div>
+            </div>
+          ))}
+        </div>
+        <div className="flex justify-end ml-[10rem] md:ml-[28rem] lg:ml-[51rem] mt-[2rem]">
+          <Button className="bg-[#1d4ed8] text-slate-200" type="submit">
+            <p>submit</p>
+          </Button>
         </div>
       </form>
-    </div>
+    </>
   );
 }
 
