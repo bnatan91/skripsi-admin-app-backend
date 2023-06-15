@@ -175,7 +175,6 @@ function Form(props) {
   };
 
   const majorSelectedHandler = (e) => {
-    console.log(e.target.value);
     const selectedMajor = e.target.value;
     for (let i = 0; i < selectMajor.length; i++) {
       if (selectMajor[i].name === selectedMajor) {
