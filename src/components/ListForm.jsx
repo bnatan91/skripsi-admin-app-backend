@@ -57,15 +57,15 @@ const calculationMatrix = (data, major, value, checkedT, checkedS) => {
                 (sortIdCheckedS[i].checkedS / maxCheckedS.checkedS) * 0.2,
             );
             wpmValue.push(
-              Math.pow(sortIdValue[i].value / maxValue.value, 0.6) *
+              Math.pow(sortIdValue[i].value / maxValue.value, 0.3) *
                 Math.pow(1 / 1, 0.3) *
                 Math.pow(
                   sortIdCheckedT[i].checkedT / maxCheckedT.checkedT,
-                  0.4,
+                  0.2,
                 ) *
                 Math.pow(
                   sortIdCheckedS[i].checkedS / maxCheckedS.checkedS,
-                  0.4,
+                  0.2,
                 ),
             );
           } else {
@@ -76,15 +76,15 @@ const calculationMatrix = (data, major, value, checkedT, checkedS) => {
                 (sortIdCheckedS[i].checkedS / maxCheckedS.checkedS) * 0.2,
             );
             wpmValue.push(
-              Math.pow(sortIdValue[i].value / maxValue.value, 0.6) *
+              Math.pow(sortIdValue[i].value / maxValue.value, 0.3) *
                 Math.pow(0.5 / 1, 0.3) *
                 Math.pow(
                   sortIdCheckedT[i].checkedT / maxCheckedT.checkedT,
-                  0.4,
+                  0.2,
                 ) *
                 Math.pow(
                   sortIdCheckedS[i].checkedS / maxCheckedS.checkedS,
-                  0.4,
+                  0.2,
                 ),
             );
           }
