@@ -1,6 +1,7 @@
 import { Button, Card, Input } from '@material-tailwind/react';
 import axios from 'axios';
 import { useState } from 'react';
+import { API_URL } from '../config/config';
 
 // eslint-disable-next-line react/prop-types
 function Search({ onClickInput, Error }) {
@@ -12,7 +13,7 @@ function Search({ onClickInput, Error }) {
 
   const getStudents = async () => {
     try {
-      const response = await axios.post(`/api/test/students`, {
+      const response = await axios.post(`${API_URL}/api/test/students`, {
         studentCode: input,
       });
       onClickInput(response.data);
