@@ -1,11 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import {
-  Select,
-  Option,
-  Input,
-  Checkbox,
-  Button,
-} from '@material-tailwind/react';
+/* eslint-disable react/prop-types */
+import { useEffect, useState } from 'react';
+import { Input, Checkbox, Button } from '@material-tailwind/react';
+import axios from 'axios';
 
 const listSubjects = [
   {
@@ -118,16 +114,25 @@ const listMajor = [
   },
 ];
 
-function Form(props) {
-  const [inputSubject, setInputSubject] = useState([]);
+function Form({ onSubmitMajor, onModal, onSubmit, isTrue, Major }) {
   const [newArr, setNewArr] = useState([]);
   const [major, setMajor] = useState(listMajor[0]);
   const [selectMajor, setSelectMajor] = useState([]);
 
   useEffect(() => {
-    setNewArr(listSubjects);
-    setSelectMajor(listMajor);
-  }, []);
+    if (isTrue === false) {
+      setNewArr(listSubjects);
+      setSelectMajor(listMajor);
+    } else {
+      getSubjects();
+      setSelectMajor(Major);
+    }
+  }, [isTrue, Major]);
+
+  const getSubjects = async () => {
+    const response = await axios.get(`/api/test/subjects`);
+    setNewArr(response.data);
+  };
 
   const newData = (index, value, subject) => {
     let filterData = newArr.filter((item) => item.id !== subject.id);
@@ -185,9 +190,9 @@ function Form(props) {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    props.onSubmitMajor(major);
-    props.onModal(true);
-    props.onSubmit(newArr);
+    onSubmitMajor(major);
+    onModal(true);
+    onSubmit(newArr);
   };
 
   return (
@@ -208,15 +213,17 @@ function Form(props) {
             className="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-transparent border-gray-300 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
             onChange={majorSelectedHandler}
           >
-            {selectMajor.map((major, index) => (
-              <option
-                className="bg-[#020617]"
-                key={index + 1}
-                value={major.name}
-              >
-                {major.name}
-              </option>
-            ))}
+            {selectMajor.map((major, index) => {
+              return (
+                <option
+                  className="bg-[#020617]"
+                  key={index + 1}
+                  value={major.name}
+                >
+                  {major.name}
+                </option>
+              );
+            })}
           </select>
         </div>
         <br />

@@ -13,7 +13,6 @@ function Modal(props) {
     e.preventDefault();
     props.onBack(false);
   };
-  console.log(value);
   return (
     <>
       <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-70">
