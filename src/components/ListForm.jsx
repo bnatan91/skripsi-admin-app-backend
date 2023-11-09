@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+/* eslint-disable react/prop-types */
+import { useEffect, useState } from 'react';
 import Form from './Form';
 
 let finalValue = [];
@@ -8,7 +9,6 @@ const matrix = (data, major) => {
   const checkedTArr = [];
   const checkedSArr = [];
   data.map((subject, index) => {
-    // console.log(subject.value);
     valueArr.push({
       id: index + 1,
       value: subject.value,
@@ -36,7 +36,6 @@ const calculationMatrix = (data, major, value, checkedT, checkedS) => {
   const maxValue = value[0];
   const maxCheckedT = checkedT[0];
   const maxCheckedS = checkedS[0];
-  let lastValue = [];
   let wsmValue = [];
   let wpmValue = [];
   const sortIdValue = value.sort((a, b) => a.id - b.id);
@@ -46,10 +45,8 @@ const calculationMatrix = (data, major, value, checkedT, checkedS) => {
   switch (major.category) {
     case 'IPA':
       {
-        console.log('ipa');
         for (let i = 0; i < data.length; i++) {
           if (data[i].category === 'IPA') {
-            console.log('...ipa');
             wsmValue.push(
               (sortIdValue[i].value / maxValue.value) * 0.3 +
                 (1 / 1) * 0.3 +
@@ -93,10 +90,8 @@ const calculationMatrix = (data, major, value, checkedT, checkedS) => {
       break;
     case 'IPS':
       {
-        console.log('ips');
         for (let i = 0; i < data.length; i++) {
           if (data[i].category === 'IPS') {
-            console.log('...ipa');
             wsmValue.push(
               (sortIdValue[i].value / maxValue.value) * 0.3 +
                 (1 / 1) * 0.3 +
@@ -104,15 +99,15 @@ const calculationMatrix = (data, major, value, checkedT, checkedS) => {
                 (sortIdCheckedS[i].checkedS / maxCheckedS.checkedS) * 0.2,
             );
             wpmValue.push(
-              Math.pow(sortIdValue[i].value / maxValue.value, 0.6) *
+              Math.pow(sortIdValue[i].value / maxValue.value, 0.3) *
                 Math.pow(1 / 1, 0.3) *
                 Math.pow(
                   sortIdCheckedT[i].checkedT / maxCheckedT.checkedT,
-                  0.4,
+                  0.2,
                 ) *
                 Math.pow(
                   sortIdCheckedS[i].checkedS / maxCheckedS.checkedS,
-                  0.4,
+                  0.2,
                 ),
             );
           } else {
@@ -123,15 +118,15 @@ const calculationMatrix = (data, major, value, checkedT, checkedS) => {
                 (sortIdCheckedS[i].checkedS / maxCheckedS.checkedS) * 0.2,
             );
             wpmValue.push(
-              Math.pow(sortIdValue[i].value / maxValue.value, 0.6) *
+              Math.pow(sortIdValue[i].value / maxValue.value, 0.3) *
                 Math.pow(0.5 / 1, 0.3) *
                 Math.pow(
                   sortIdCheckedT[i].checkedT / maxCheckedT.checkedT,
-                  0.4,
+                  0.2,
                 ) *
                 Math.pow(
                   sortIdCheckedS[i].checkedS / maxCheckedS.checkedS,
-                  0.4,
+                  0.2,
                 ),
             );
           }
@@ -149,11 +144,9 @@ const calculationMatrix = (data, major, value, checkedT, checkedS) => {
       value: 0.5 * wsmValue[index] + 0.5 * wpmValue[index],
     });
   });
-  // console.log(finalValue);
-  // finalValue = [];
 };
 
-function ListForm(props) {
+function ListForm({ onValue, onModal, isTrue, Major }) {
   const [inputSubject, setInputSubject] = useState([]);
   const [inputMajor, setInputMajor] = useState('');
   const [value, setValue] = useState([]);
@@ -172,17 +165,15 @@ function ListForm(props) {
   }, [inputSubject, inputMajor]);
 
   useEffect(() => {
-    props.onValue(value);
-  }, [value]);
+    onValue(value);
+  }, [value, onValue]);
 
   const submitValue = () => {
     console.log(inputSubject);
   };
 
-  // console.log(value);
   const modalHandler = (data) => {
-    // console.log(data);
-    props.onModal(data);
+    onModal(data);
   };
   return (
     <div
@@ -194,6 +185,8 @@ function ListForm(props) {
         onSubmitMajor={submitMajorHandler}
         onModal={modalHandler}
         onValue={submitValue}
+        isTrue={isTrue}
+        Major={Major}
       />
     </div>
   );

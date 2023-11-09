@@ -5,16 +5,22 @@ import {
   CardBody,
   Typography,
 } from '@material-tailwind/react';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 function Instruction() {
   const [open, setOpen] = useState(false);
   const toggleOpen = () => setOpen((cur) => !cur);
+
+  const refresh = () => window.location.reload(true);
+
   return (
     <>
       <div id="instruction" className="flex justify-center ">
         <Button className="bg-[#1d4ed8] " onClick={toggleOpen}>
           Petunjuk!
+        </Button>
+        <Button className="bg-[#1d4ed8] " onClick={refresh}>
+          Back
         </Button>
       </div>
       <Collapse open={open}>
