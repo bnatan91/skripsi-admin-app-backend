@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { Input, Checkbox, Button } from '@material-tailwind/react';
 import axios from 'axios';
+import { API_URL } from '../config/config';
 
 const listSubjects = [
   {
@@ -130,7 +131,7 @@ function Form({ onSubmitMajor, onModal, onSubmit, isTrue, Major }) {
   }, [isTrue, Major]);
 
   const getSubjects = async () => {
-    const response = await axios.get(`/api/test/subjects`);
+    const response = await axios.get(`${API_URL}/api/test/subjects`);
     setNewArr(response.data);
   };
 
