@@ -5,7 +5,6 @@ import {
   CardFooter,
   Typography,
 } from '@material-tailwind/react';
-import { useEffect, useState } from 'react';
 
 function ErrorModal({ Error, onBack }) {
   const onClickHandler = () => {
@@ -14,13 +13,9 @@ function ErrorModal({ Error, onBack }) {
 
   return (
     <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-70">
-      <Card className="h-[50rem] lg:h-[40rem] flex items-center md:w-[40rem] bg-[#111827] overflow-y-scroll">
+      <Card className="h-[50rem] lg:h-[25rem] flex justify-center items-center md:w-[40rem] bg-[#111827] ">
         <CardBody>
-          <Typography
-            variant="h5"
-            color="white"
-            className="flex justify-center mb-2"
-          >
+          <Typography variant="h5" color="white" className="flex mb-2">
             {Error}
           </Typography>
         </CardBody>

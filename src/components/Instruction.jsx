@@ -19,8 +19,8 @@ function Instruction() {
         <Button className="bg-[#1d4ed8] " onClick={toggleOpen}>
           Petunjuk!
         </Button>
-        <Button className="bg-[#1d4ed8] " onClick={refresh}>
-          Back
+        <Button className="bg-[#1d4ed8] ml-4" onClick={refresh}>
+          refresh
         </Button>
       </div>
       <Collapse open={open}>

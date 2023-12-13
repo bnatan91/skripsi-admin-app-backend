@@ -7,6 +7,7 @@ import {
   Tabs,
   TabsBody,
   TabsHeader,
+  Typography,
 } from '@material-tailwind/react';
 import { useEffect, useState } from 'react';
 
@@ -39,8 +40,14 @@ function Content({ onSubmitData, isTrue }) {
                 {listMajor.map(({ name, description, extra_note }) => {
                   return (
                     <TabPanel key={name} value={name}>
-                      {description}
-                      {extra_note}
+                      <div>
+                        <h1>Description</h1>
+                        <Typography>{description}</Typography>
+                      </div>
+                      <div>
+                        <h1>Extra Note</h1>
+                        <Typography>{extra_note}</Typography>
+                      </div>
                     </TabPanel>
                   );
                 })}

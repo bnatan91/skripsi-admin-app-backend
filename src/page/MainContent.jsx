@@ -2,6 +2,7 @@ import { useState } from 'react';
 import ListForm from '../components/ListForm';
 import Modal from '../components/Modal';
 import Instruction from '../components/Instruction';
+import { Button } from '@material-tailwind/react';
 
 function MainContent({ isTrue, Major }) {
   const [modal, setModal] = useState(false);

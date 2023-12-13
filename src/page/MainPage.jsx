@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 import Search from '../components/Search';
 import Content from '../components/Content';
 import ErrorModal from '../components/ErrorModal';
+import { isEmpty } from 'lodash';
 
 const listMajor = [
   {
@@ -57,6 +58,7 @@ function MainPage() {
 
   const onErrorHandler = (data) => {
     setErrMsg(data);
+    console.log(data);
     setErrorModal(true);
   };
 
@@ -65,11 +67,18 @@ function MainPage() {
   };
 
   const onClickHandler = (data) => {
+    const majors = data.majors;
+
     if (!data) {
       setIsTrue(false);
     }
     setIsTrue(true);
-    setDataMajor(data.majors);
+
+    if (isEmpty(majors)) {
+      setIsTrue(false);
+    } else {
+      setDataMajor(majors);
+    }
   };
   return (
     <>
