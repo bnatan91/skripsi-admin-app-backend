@@ -18,7 +18,6 @@ function Search({ onClickInput, Error }) {
         studentCode: input,
       });
       if (isEmpty(response.data.majors)) {
-        console.log('test');
         Error(`Student with code ${input} don't have major`);
       }
       onClickInput(response.data);

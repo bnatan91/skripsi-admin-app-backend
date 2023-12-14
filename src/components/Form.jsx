@@ -213,7 +213,11 @@ function Form({ onSubmitMajor, onModal, onSubmit, isTrue, Major }) {
             id="major"
             className="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-transparent border-gray-300 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
             onChange={majorSelectedHandler}
+            required
           >
+            <option className="bg-[#020617]" selected value="">
+              Please choose an option
+            </option>
             {selectMajor.map((major, index) => {
               return (
                 <option

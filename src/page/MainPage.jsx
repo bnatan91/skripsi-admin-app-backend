@@ -58,7 +58,6 @@ function MainPage() {
 
   const onErrorHandler = (data) => {
     setErrMsg(data);
-    console.log(data);
     setErrorModal(true);
   };
 
