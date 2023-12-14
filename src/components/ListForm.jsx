@@ -9,7 +9,6 @@ const matrix = (data, major) => {
   const checkedTArr = [];
   const checkedSArr = [];
   data.map((subject, index) => {
-    console.log(subject);
     valueArr.push({
       id: index + 1,
       value: subject.value,
@@ -138,7 +137,6 @@ const calculationMatrix = (data, major, value, checkedT, checkedS) => {
     default:
       break;
   }
-  console.log(maxValue);
   data.map((subject, index) => {
     finalValue.push({
       id: index + 1,
