@@ -115,17 +115,19 @@ const listMajor = [
   },
 ];
 
-function Form({ onSubmitMajor, onModal, onSubmit, isTrue, Major }) {
+function Form({ onSubmitMajor, onModal, onSubmit, isTrue, Major, onCriteria }) {
   const [newArr, setNewArr] = useState([]);
   const [major, setMajor] = useState(listMajor[0]);
+  const [criteria, setCriteria] = useState([]);
   const [selectMajor, setSelectMajor] = useState([]);
 
   useEffect(() => {
     if (isTrue === false) {
-      setNewArr(listSubjects);
-      setSelectMajor(listMajor);
+      setNewArr([]);
+      setSelectMajor([]);
     } else {
       getSubjects();
+      getCriteria();
       setSelectMajor(Major);
     }
   }, [isTrue, Major]);
@@ -133,6 +135,11 @@ function Form({ onSubmitMajor, onModal, onSubmit, isTrue, Major }) {
   const getSubjects = async () => {
     const response = await axios.get(`${API_URL}/api/test/subjects`);
     setNewArr(response.data);
+  };
+
+  const getCriteria = async () => {
+    const response = await axios.get(`${API_URL}/api/test/criteria`);
+    setCriteria(response.data);
   };
 
   const newData = (index, value, subject) => {
@@ -194,6 +201,7 @@ function Form({ onSubmitMajor, onModal, onSubmit, isTrue, Major }) {
     onSubmitMajor(major);
     onModal(true);
     onSubmit(newArr);
+    onCriteria(criteria);
   };
 
   return (

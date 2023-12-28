@@ -41,12 +41,16 @@ function Content({ onSubmitData, isTrue }) {
                   return (
                     <TabPanel key={name} value={name}>
                       <div>
-                        <h1>Description</h1>
-                        <Typography>{description}</Typography>
+                        <Typography variant="h5" color="white">
+                          Description
+                        </Typography>
+                        <Typography color="white">{description}</Typography>
                       </div>
                       <div>
-                        <h1>Extra Note</h1>
-                        <Typography>{extra_note}</Typography>
+                        <Typography variant="h5" color="white">
+                          Extra Note
+                        </Typography>
+                        <Typography color="white">{extra_note}</Typography>
                       </div>
                     </TabPanel>
                   );

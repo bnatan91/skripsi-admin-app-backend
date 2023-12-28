@@ -28,6 +28,14 @@ function Search({ onClickInput, Error }) {
     }
   };
 
+  const getCriteria = () => {
+    try {
+      
+    } catch (error) {
+      
+    }
+  }
+
   const inputSubmitHandler = (e) => {
     e.preventDefault();
     getStudents();
