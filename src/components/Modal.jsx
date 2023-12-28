@@ -19,18 +19,58 @@ function Modal(props) {
         <Card className="h-[50rem] lg:h-[40rem] flex items-center md:w-[40rem] bg-[#111827] overflow-y-scroll">
           <CardBody>
             <Typography
-              variant="h5"
+              variant="h4"
               color="white"
               className="flex justify-center mb-2"
             >
               Hasil Rekomendasi
             </Typography>
-            <table>
+            <Typography
+              variant="p"
+              color="white"
+              className="flex justify-center"
+            >
+              Urutan rekomendasi berdasarkan dengan nilai, urutan yang teratas
+              merupakan mata pelajaran yang paling di rekomendasikan dan yang
+              terbawah paling tidak di rekomendasikan
+            </Typography>
+            <table className="mx-auto">
+              <thead>
+                <tr>
+                  <td className="p-4">
+                    <Typography
+                      variant="small"
+                      color="white"
+                      className="font-normal"
+                    >
+                      Mata Pelajaran
+                    </Typography>
+                  </td>
+                  <td className="p-4">
+                    <Typography
+                      variant="small"
+                      color="white"
+                      className="font-normal"
+                    >
+                      No
+                    </Typography>
+                  </td>
+                  <td className="p-4">
+                    <Typography
+                      variant="small"
+                      color="white"
+                      className="font-normal"
+                    >
+                      Nilai
+                    </Typography>
+                  </td>
+                </tr>
+              </thead>
               <tbody>
                 {value.map((subject, index) => (
                   <tr
                     key={index + 1}
-                    className="flex flex-row justify-between mx-4 ml-4 my-6 even:bg-blue-gray-900"
+                    // className="flex flex-row justify-between mx-4 ml-4 my-6 even:bg-blue-gray-900"
                   >
                     <td className="p-4">
                       <Typography
@@ -39,6 +79,15 @@ function Modal(props) {
                         className="font-normal"
                       >
                         {subject.name}
+                      </Typography>
+                    </td>
+                    <td className="p-4">
+                      <Typography
+                        variant="small"
+                        color="white"
+                        className="font-normal"
+                      >
+                        {index + 1}
                       </Typography>
                     </td>
                     <td className="p-4">
@@ -63,7 +112,7 @@ function Modal(props) {
                 className="bg-[#1d4ed8] items-start text-gray-200"
                 onClick={onClickHandler}
               >
-                Back
+                Close
               </Button>
             </CardFooter>
           </CardFooter>
